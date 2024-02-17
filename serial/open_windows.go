@@ -201,9 +201,9 @@ func setCommState(h syscall.Handle, options OpenOptions) error {
 	}
 
 	if options.RtsControl {
-		params.fRtsControl = 0x01
+		params.flags[1] |= 0x1
 	}else{
-		params.fRtsControl = 0x00
+		params.flags[1] |= 0x0
 	}
 
 	// why do you do?

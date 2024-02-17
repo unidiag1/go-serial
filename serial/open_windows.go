@@ -206,6 +206,8 @@ func setCommState(h syscall.Handle, options OpenOptions) error {
 		params.fRtsControl = 0x00
 	}
 
+	// why do you do?
+
 	r, _, err := syscall.Syscall(nSetCommState, 2, uintptr(h), uintptr(unsafe.Pointer(&params)), 0)
 	if r == 0 {
 		return err

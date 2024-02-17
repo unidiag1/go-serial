@@ -39,6 +39,7 @@ type structDCB struct {
 	ByteSize, Parity, StopBits                     byte
 	XonChar, XoffChar, ErrorChar, EofChar, EvtChar byte
 	wReserved1                                     uint16
+	fRtsControl                                    byte
 }
 
 type structTimeouts struct {
@@ -198,6 +199,14 @@ func setCommState(h syscall.Handle, options OpenOptions) error {
 		params.flags[0] |= 0x04 // fOutxCtsFlow = 0x1
 		params.flags[1] |= 0x20 // fRtsControl = RTS_CONTROL_HANDSHAKE (0x2)
 	}
+
+	if options.RtsControl {
+		params.fRtsControl = 0x01
+	}else{
+		params.fRtsControl = 0x00
+	}
+
+	if options.R {
 
 	r, _, err := syscall.Syscall(nSetCommState, 2, uintptr(h), uintptr(unsafe.Pointer(&params)), 0)
 	if r == 0 {

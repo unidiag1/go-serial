@@ -202,8 +202,6 @@ func setCommState(h syscall.Handle, options OpenOptions) error {
 
 	if options.RtsControl {
 		params.flags[1] |= 0x10 // fRtsControl = RTS_CONTROL_HANDSHAKE (0x1)
-	}else{
-		params.flags[1] &^= 1 << 5 // fRtsControl = RTS_CONTROL_HANDSHAKE (0x0)
 	}
 
 	// why do you do?
